@@ -407,6 +407,7 @@ void CListView::ValueToList(const int item_index,const string value)
    int i=(item_index>=array_size)? array_size-1 :(item_index<0)? 0 : item_index;
 //--- Store the value in the list view
    m_value_items[i]=value;
+   ShiftList();
   }
 //+------------------------------------------------------------------+
 //| Sets the size of the list view                                   |
