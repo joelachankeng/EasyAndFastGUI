@@ -234,7 +234,7 @@ bool CMenuItem::CreateMenuItem(const long chart_id,const int subwin,const int in
         {
          ::Print(__FUNCTION__," > The type of the independent menu item can be only MI_SIMPLE or MI_HAS_CONTEXT_MENU,",
                  "that is only with a context menu.\n",
-                 __FUNCTION__," > The type of the menu item can be set using the CMenuItem::TypeMenuItem()") method");
+                 __FUNCTION__," > The type of the menu item can be set using the CMenuItem::TypeMenuItem()) method");
          return(false);
         }
      }
