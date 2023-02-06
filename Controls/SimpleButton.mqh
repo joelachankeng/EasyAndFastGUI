@@ -39,6 +39,7 @@ private:
    bool              m_two_state;
    //--- Available/blocked
    bool              m_button_state;
+   bool              isCreated;
    //---
 public:
                      CSimpleButton(void);
@@ -62,16 +63,20 @@ public:
    void              ButtonYSize(const int y_size)           { m_button_y_size=y_size;         }
    //--- (1) Returns the button text, (2) setting up the color of the button text
    string            Text(void)                        const { return(m_button.Description()); }
-   void              TextColor(const color clr)              { m_text_color=clr;               }
+   void              Text(const string text)                 { m_button.Description(text); }
+   void              TextColor(const color clr)              { m_text_color=clr; isCreated ? m_button.Color(clr) : m_text_color=clr;}
+   color             TextColor(void)                   const { return(m_text_color); }
    void              TextColorOff(const color clr)           { m_text_color_off=clr;           }
    void              TextColorPressed(const color clr)       { m_text_color_pressed=clr;       }
    //--- Setting up the color of the button background
-   void              BackColor(const color clr)              { m_back_color=clr;               }
+   void              BackColor(const color clr)              { m_back_color=clr; isCreated ? m_button.BackColor(clr) : m_back_color=clr;}
+   color             BackColor(void)                   const { return(m_back_color); }
    void              BackColorOff(const color clr)           { m_back_color_off=clr;           }
    void              BackColorHover(const color clr)         { m_back_color_hover=clr;         }
    void              BackColorPressed(const color clr)       { m_back_color_pressed=clr;       }
    //--- Setting up the color of the button frame
-   void              BorderColor(const color clr)            { m_border_color=clr;             }
+   void              BorderColor(const color clr)            {m_border_color=clr; isCreated ? m_button.BorderColor(clr) : m_border_color=clr;}
+   color             BorderColor(void)                   const { return(m_border_color); }
    void              BorderColorOff(const color clr)         { m_border_color_off=clr;         }
 
    //--- Changing the color of the element
@@ -114,7 +119,8 @@ CSimpleButton::CSimpleButton(void) : m_button_state(true),
                                      m_back_color_hover(C'193,218,255'),
                                      m_back_color_pressed(C'190,190,200'),
                                      m_border_color(C'150,170,180'),
-                                     m_border_color_off(C'178,195,207')
+                                     m_border_color_off(C'178,195,207'),
+                                     isCreated(false)
   {
 //--- Store the name of the element class in the base class
    CElement::ClassName(CLASS_NAME);
@@ -262,6 +268,7 @@ bool CSimpleButton::CreateButton(void)
    CElement::InitColorArray(m_back_color,m_back_color_hover,m_back_color_array);
 //--- Store the object pointer
    CElement::AddToArray(m_button);
+   isCreated = true;
    return(true);
   }
 //+------------------------------------------------------------------+
